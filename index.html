@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emotion Base Smart Diary</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="background-orb orb-one"></div><div class="background-orb orb-two"></div>
+  <main class="app-shell">
+    <section id="authView" class="auth-layout">
+      <div class="brand-panel">
+        <div class="brand-icon">✦</div>
+        <p class="eyebrow">YOUR PERSONAL WELLNESS SPACE</p>
+        <h1>Emotion Base<br><span>Smart Diary</span></h1>
+        <p class="brand-copy">A little space to understand your feelings, notice your patterns, and care for yourself every day.</p>
+        <div class="quote-card"><span>“</span><p>Your feelings matter. Give them a little space.</p></div>
+      </div>
+      <div class="auth-card">
+        <div class="mobile-brand"><span class="brand-icon small">✦</span><strong>Emotion Base Smart Diary</strong></div>
+        <div class="auth-tabs">
+          <button class="tab active" id="loginTab" type="button">Login</button>
+          <button class="tab" id="registerTab" type="button">Create account</button>
+        </div>
+        <h2 id="authTitle">Welcome back</h2>
+        <p class="muted" id="authSubtitle">Sign in to continue your diary.</p>
+        <form id="authForm">
+          <label id="nameLabel" class="hidden" for="name">Your name</label>
+          <input id="name" class="hidden" type="text" placeholder="Enter your name" autocomplete="name">
+          <label for="username">Username</label>
+          <input id="username" type="text" placeholder="Choose your username" autocomplete="username" required minlength="3">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter password (6+ characters)" autocomplete="current-password" required minlength="6">
+          <p id="authError" class="error-message" role="alert"></p>
+          <button class="primary-btn full" id="authSubmit" type="submit">Login <span>→</span></button>
+        </form>
+        <p class="fine-print">Your diary is personal. Use a password you don't use elsewhere.</p>
+      </div>
+    </section>
+
+    <section id="appView" class="hidden">
+      <header class="topbar">
+        <a class="brand" href="#"><span class="brand-icon small">✦</span><span>Emotion Base <b>Smart Diary</b></span></a>
+        <div class="topbar-right"><span class="welcome" id="welcomeText">Welcome</span><button id="logoutBtn" class="logout-btn">Log out ↗</button></div>
+      </header>
+      <div class="dashboard-heading">
+        <div><p class="eyebrow">YOUR PRIVATE SPACE</p><h1>How are you feeling today?</h1><p class="muted">Check in with yourself. Every feeling deserves a little attention.</p></div>
+        <div class="date-pill" id="todayDate"></div>
+      </div>
+      <nav class="main-nav">
+        <button class="nav-btn active" data-page="overview">Overview</button>
+        <button class="nav-btn" data-page="diary">Mood diary</button>
+        <button class="nav-btn" data-page="monthly">Monthly report</button>
+        <button class="nav-btn" data-page="refresh">Mood refresh</button>
+      </nav>
+
+      <section id="page-overview" class="page">
+        <div class="content-grid">
+          <div class="panel checkin-panel">
+            <div class="panel-heading"><div><p class="eyebrow">DAILY CHECK-IN</p><h2>Choose your mood</h2></div><span class="soft-icon">☼</span></div>
+            <div class="mood-options" id="moodOptions">
+              <button class="mood-choice" data-mood="Happy"><span>😊</span><b>Happy</b></button>
+              <button class="mood-choice" data-mood="Calm"><span>😌</span><b>Calm</b></button>
+              <button class="mood-choice" data-mood="Okay"><span>🙂</span><b>Okay</b></button>
+              <button class="mood-choice" data-mood="Stressed"><span>😵‍💫</span><b>Stressed</b></button>
+              <button class="mood-choice" data-mood="Sad"><span>😔</span><b>Sad</b></button>
+              <button class="mood-choice" data-mood="Angry"><span>😠</span><b>Angry</b></button>
+              <button class="mood-choice" data-mood="Tired"><span>😴</span><b>Tired</b></button>
+            </div>
+            <label for="moodNote">Want to add a note? <span class="muted">(optional)</span></label>
+            <textarea id="moodNote" rows="3" maxlength="1000" placeholder="What is on your mind today?"></textarea>
+            <div class="save-row"><span id="selectedMoodLabel" class="muted">Select a mood above</span><button id="saveMoodBtn" class="primary-btn" disabled>Save check-in <span>→</span></button></div>
+            <p id="moodError" class="error-message"></p>
+          </div>
+          <div class="side-stack">
+            <div class="panel welcome-panel"><div class="welcome-illustration">🌱</div><p class="eyebrow">A GENTLE REMINDER</p><h2>Small steps count.</h2><p class="muted">You don't need to feel perfect every day. Just notice how you feel, without judging yourself.</p><button class="text-btn" data-goto="refresh">Need a little lift? →</button></div>
+            <div class="stat-card"><div class="stat-icon">✎</div><div><p class="muted">Entries this month</p><strong id="monthCount">0</strong></div><span class="stat-decoration">✦</span></div>
+          </div>
+        </div>
+        <div class="panel recent-panel"><div class="panel-heading"><div><p class="eyebrow">YOUR JOURNEY</p><h2>Recent check-ins</h2></div><button class="text-btn" data-goto="diary">View diary →</button></div><div id="recentEntries" class="entry-list"></div></div>
+      </section>
+
+      <section id="page-diary" class="page hidden">
+        <div class="section-heading"><p class="eyebrow">YOUR THOUGHTS, YOUR SPACE</p><h2>Mood diary</h2><p class="muted">A simple record of how your days feel.</p></div>
+        <div class="panel"><div id="allEntries" class="entry-list"></div></div>
+      </section>
+
+      <section id="page-monthly" class="page hidden">
+        <div class="section-heading"><p class="eyebrow">LOOK BACK WITH KINDNESS</p><h2>Your monthly report</h2><p class="muted">Notice patterns over time. This is a personal reflection tool, not a medical assessment.</p></div>
+        <div class="panel report-toolbar"><label for="reportMonth">Choose month</label><input type="month" id="reportMonth"><button id="refreshReport" class="primary-btn">Show report →</button></div>
+        <div class="stats-grid">
+          <div class="panel report-stat"><span class="stat-icon">📔</span><p class="muted">Check-ins</p><strong id="reportTotal">0</strong></div>
+          <div class="panel report-stat"><span class="stat-icon">🌤️</span><p class="muted">Most recorded mood</p><strong id="reportTopMood">—</strong></div>
+          <div class="panel report-stat"><span class="stat-icon">🗓️</span><p class="muted">Days recorded</p><strong id="reportDays">0</strong></div>
+        </div>
+        <div class="panel"><div class="panel-heading"><div><p class="eyebrow">MOOD MIX</p><h2>What you recorded</h2></div></div><div id="moodBars" class="mood-bars"></div><p id="reportEmpty" class="muted"></p></div>
+      </section>
+
+      <section id="page-refresh" class="page hidden">
+        <div class="section-heading"><p class="eyebrow">A MOMENT FOR YOU</p><h2>Let's gently refresh your mood</h2><p class="muted">Pick what feels right. You don't have to force yourself to be happy.</p></div>
+        <div class="refresh-grid">
+          <article class="panel refresh-card"><span class="refresh-emoji">😄</span><h2>A little laugh</h2><p class="muted">A small silly joke for a lighter moment.</p><div id="jokeText" class="result-box">Why did the computer go to the doctor? It had a virus! 😄</div><button id="newJokeBtn" class="secondary-btn">Another joke ↻</button></article>
+          <article class="panel refresh-card"><span class="refresh-emoji">🎧</span><h2>Music corner</h2><p class="muted">Choose a vibe and find music that matches it.</p><select id="musicMood"><option value="calm">Calm & peaceful</option><option value="happy">Happy & energetic</option><option value="sad">Comforting when sad</option><option value="focus">Focus & study</option></select><div id="musicSuggestion" class="result-box">Try an acoustic or lo-fi playlist and take a quiet moment.</div><button id="musicSearchBtn" class="secondary-btn">Find playlist ↗</button></article>
+          <article class="panel refresh-card chat-card"><span class="refresh-emoji">💬</span><h2>Talk it out</h2><p class="muted">Write what's on your mind. This is a simple supportive chat, not a therapist.</p><div id="chatMessages" class="chat-messages"><div class="chat-bubble bot">Hi! How are you feeling right now? You can tell me a little about your day. 🌿</div></div><form id="chatForm" class="chat-form"><input id="chatInput" placeholder="Type what's on your mind..." maxlength="500" required><button class="primary-btn" type="submit" aria-label="Send message">↑</button></form></article>
+        </div>
+        <div class="kind-note"><span>♡</span><p>If you feel overwhelmed or unsafe, please contact someone you trust or a qualified mental-health professional. You deserve real support.</p></div>
+      </section>
+      <footer>Made for reflection, one day at a time · Emotion Base Smart Diary</footer>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
